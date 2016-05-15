@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="qRc-1W-Txs" customClass="PopUpView" customModule="Versole" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="21C-Vt-hCB">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nocreditpopup" translatesAutoresizingMaskIntoConstraints="NO" id="HhE-aY-KIx">
+                    <rect key="frame" x="16" y="69" width="289" height="366"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1M-Bn-Age">
+                    <rect key="frame" x="49" y="368" width="223" height="46"/>
+                    <state key="normal" image="btncancelnocredit"/>
+                    <connections>
+                        <action selector="cancelPopUp" destination="qRc-1W-Txs" eventType="touchUpInside" id="OAi-8w-vGm"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aj0-bC-6w0">
+                    <rect key="frame" x="49" y="313" width="222" height="46"/>
+                    <state key="normal" image="btnbuycreditnocredit"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="HhE-aY-KIx" firstAttribute="centerX" secondItem="qRc-1W-Txs" secondAttribute="centerX" id="DAQ-Oe-V5S"/>
+                <constraint firstAttribute="trailing" secondItem="21C-Vt-hCB" secondAttribute="trailing" id="Ii5-G9-OZC"/>
+                <constraint firstItem="N1M-Bn-Age" firstAttribute="top" secondItem="Aj0-bC-6w0" secondAttribute="bottom" constant="9" id="LJv-d2-yxP"/>
+                <constraint firstItem="21C-Vt-hCB" firstAttribute="top" secondItem="qRc-1W-Txs" secondAttribute="top" id="LpA-qk-NRf"/>
+                <constraint firstItem="21C-Vt-hCB" firstAttribute="leading" secondItem="qRc-1W-Txs" secondAttribute="leading" id="PfL-cC-0hc"/>
+                <constraint firstAttribute="bottom" secondItem="21C-Vt-hCB" secondAttribute="bottom" id="V4a-d5-8ev"/>
+                <constraint firstItem="Aj0-bC-6w0" firstAttribute="centerX" secondItem="HhE-aY-KIx" secondAttribute="centerX" id="be7-GR-UBj"/>
+                <constraint firstItem="N1M-Bn-Age" firstAttribute="top" secondItem="HhE-aY-KIx" secondAttribute="bottom" constant="-67" id="g1e-9s-kpG"/>
+                <constraint firstItem="HhE-aY-KIx" firstAttribute="centerY" secondItem="qRc-1W-Txs" secondAttribute="centerY" constant="-32" id="uGw-Wq-8v5"/>
+                <constraint firstItem="N1M-Bn-Age" firstAttribute="centerX" secondItem="HhE-aY-KIx" secondAttribute="centerX" id="zU4-Ap-w8P"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <connections>
+                <outlet property="btnBuyCredit" destination="Aj0-bC-6w0" id="lw7-F2-tia"/>
+            </connections>
+            <point key="canvasLocation" x="234" y="355"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btnbuycreditnocredit" width="222" height="46"/>
+        <image name="btncancelnocredit" width="223" height="48"/>
+        <image name="nocreditpopup" width="289" height="366"/>
+    </resources>
+</document>

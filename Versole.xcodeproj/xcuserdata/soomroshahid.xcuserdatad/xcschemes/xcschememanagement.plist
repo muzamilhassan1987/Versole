@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>MyTextField.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Versole.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>1D39EE3F1C7A14EC00EB0C57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D39EE481C7A14EC00EB0C57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D39EE621C7A151100EB0C57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D39EE6B1C7A151100EB0C57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D39EE841C7A155000EB0C57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D39EE8D1C7A155000EB0C57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D5353901C78454A00C7535C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D5353A41C78454A00C7535C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D5353AF1C78454A00C7535C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
