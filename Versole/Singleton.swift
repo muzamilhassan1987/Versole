@@ -13,4 +13,8 @@ class Singleton {
     //var userData = UserData()
     var userData:UserData!
     var objItem:NSMutableDictionary!
+    var isOrderProgress:Bool = false
+    var deviceToken:String = ""
+//    var selectedOrder:HistoryOrderOrderHistory! = HistoryOrderOrderHistory()
+    
 }

@@ -11,7 +11,10 @@ import Alamofire
 class HowItWorkController: BaseController {
 
     var arrList:[HIWData]?
+    @IBOutlet weak var btnSignUp: UIButton!
+    @IBOutlet weak var btnSignIn: UIButton!
     //var arrList:NSMutableArray! = NSMutableArray()
+    var isDataLoaded:Bool = false
     @IBOutlet weak var tblListign: UITableView!
     override func viewDidLoad() {
         currentController = Controllers.HowItWork
@@ -27,11 +30,23 @@ class HowItWorkController: BaseController {
         super.viewWillAppear(animated)
         lblTitle.text = "How it Works"
         
+        if (self.userDefault.valueForKey("isLogin") != nil) {
+            
+            let  isLogin = self.userDefault.valueForKey("isLogin") as! Bool
+            if (isLogin == true) {
+                btnSignIn.hidden = true
+                btnSignUp.hidden = true
+            }
+        }
+        
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        getHowItWorkData()
+        if (isDataLoaded == false) {
+           getHowItWorkData()
+        }
+        
         
     }
     
@@ -72,8 +87,8 @@ class HowItWorkController: BaseController {
                     if let value = response.result.value {
                         let data = HIWBase.init(object: value)
                         self.arrList = data.data
-                        
-                        print(self.arrList![0].heading)
+                        self.isDataLoaded = true
+                        //print(self.arrList![0].heading)
                         self.tblListign.reloadData()
                         
                     }

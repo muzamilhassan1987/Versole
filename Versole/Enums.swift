@@ -25,6 +25,8 @@ enum Controllers {
     case HowItWork
     case Pricing
     case PickDate
+    case OrderConfirmation
+    case CancelOrder
 }
 
 
@@ -51,4 +53,20 @@ enum eOrderDetailTag: Int {
     case eTotalNumberOfItems
     case eOrderStatusComplete
     case eOrderStatusPending
+}
+
+enum eOrderType: Int {
+    case eOrderTypeDonate = 1
+    case eOrderTypeRepair
+    
+}
+
+enum eReviewOrderType: Int {
+    case eReviewOrderTypePlace = 1
+    case eReviewOrderTypeView
+}
+
+enum eGotoToController: Int {
+    case eGotoToControllerSchedule = 1
+    case eGotoToControllerSchedule1
 }

@@ -14,18 +14,18 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nocreditpopup" translatesAutoresizingMaskIntoConstraints="NO" id="HhE-aY-KIx">
-                    <rect key="frame" x="16" y="69" width="289" height="366"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nocreditpopupnew" translatesAutoresizingMaskIntoConstraints="NO" id="HhE-aY-KIx">
+                    <rect key="frame" x="15.5" y="111" width="289" height="282"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1M-Bn-Age">
-                    <rect key="frame" x="49" y="368" width="223" height="46"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1M-Bn-Age">
+                    <rect key="frame" x="49" y="326" width="223" height="48"/>
                     <state key="normal" image="btncancelnocredit"/>
                     <connections>
                         <action selector="cancelPopUp" destination="qRc-1W-Txs" eventType="touchUpInside" id="OAi-8w-vGm"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aj0-bC-6w0">
-                    <rect key="frame" x="49" y="313" width="222" height="46"/>
+                    <rect key="frame" x="49" y="271" width="222" height="46"/>
                     <state key="normal" image="btnbuycreditnocredit"/>
                 </button>
             </subviews>
@@ -52,6 +52,6 @@
     <resources>
         <image name="btnbuycreditnocredit" width="222" height="46"/>
         <image name="btncancelnocredit" width="223" height="48"/>
-        <image name="nocreditpopup" width="289" height="366"/>
+        <image name="nocreditpopupnew" width="289" height="282"/>
     </resources>
 </document>

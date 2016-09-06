@@ -34,6 +34,11 @@ class HomeViewController: BaseController {
             distanceConstrainOpenOrder.constant = 16
         }
     }
+    @IBAction func openOrder(sender: UIButton) {
+        
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OrderHistoryController") as! OrderHistoryController
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

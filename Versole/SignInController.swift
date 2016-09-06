@@ -33,6 +33,25 @@ class SignInController: BaseController {
         super.viewWillAppear(true)
         lblTitle.text = "Sign In"
     }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+//        if (self.userDefault.valueForKey("isLogin") != nil) {
+//            
+//            let  isLogin = self.userDefault.valueForKey("isLogin") as! Bool
+//            if (isLogin == true) {
+//                Singleton.sharedInstance.userData = self.userDefault.rm_customObjectForKey("userDetail") as! UserData
+//                let userEmail = self.userDefault.valueForKey("userEmail") as! String
+//                let userPassword = self.userDefault.valueForKey("userPassword") as! String
+//                
+//                txtEmail.text = userEmail
+//                txtPassword.text = userPassword
+//                loginPressed()
+//            }
+//        }
+        
+        
+        
+    }
     override func  updateViewConstraints() {
         
         super.updateViewConstraints()
@@ -47,8 +66,11 @@ class SignInController: BaseController {
     
     @IBAction func loginPressed() {
         
-        
-        txtEmail.text = "w@w.com"
+
+        //txtEmail.text = "m@m.com"
+        //txtEmail.text = "a@a.com"
+     //   txtEmail.text = "tt@txt.com"
+        txtEmail.text = "q@q.com"
         txtPassword.text = "123456"
         
         if(!HelperMethods.validateStringLength(txtEmail.text!)) {
@@ -68,7 +90,8 @@ class SignInController: BaseController {
         
 //        NSNotificationCenter.defaultCenter().postNotificationName("login", object: nil)
     }
-    func callLoginService(){
+    
+    func makeCall(){
         
         self.view.endEditing(true)
         let URL: String = "http://66.147.244.103/~versolec/api_v1/loginByEmail"
@@ -78,7 +101,7 @@ class SignInController: BaseController {
         let parameter = ["email": txtEmail.text!,
                          "password": txtPassword.text!,
                          "deviceType": "iOS",
-                         "deviceId": "dssdds",
+                         "deviceId": Singleton.sharedInstance.deviceToken,
                          "checksum": checksum]
         
         print(parameter)
@@ -96,6 +119,67 @@ class SignInController: BaseController {
                         if (Int(data.code!) == 200) {
                             
                             self.userDefault.rm_setCustomObject(data.data![0], forKey: "userDetail")
+                            self.userDefault.setValue(NSNumber(bool: true), forKey: "isLogin")
+                            self.userDefault.setValue(self.txtEmail.text, forKey: "userEmail")
+                            self.userDefault.setValue(self.txtPassword.text, forKey: "userPassword")
+                            Singleton.sharedInstance.userData = data.data![0]
+                            print(Singleton.sharedInstance.userData.address)
+                            //                            let test = self.userDefault.rm_customObjectForKey("userDetail") as! UserData
+                            //                            print(test.firstname)
+                            //                            print(test.creditCount)
+                            // print(userDefault.rm_customObjectForKey("userDetail"))
+                            NSNotificationCenter.defaultCenter().postNotificationName("login", object: nil)
+                        }
+                        else {
+                            EZAlertController.alert("Alert", message: data.msg!)
+                        }
+                        
+                    }
+                case .Failure(let error):
+                    print(error)
+                    
+                }
+                
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    func callLoginService(){
+        
+        self.view.endEditing(true)
+        let URL: String = "http://66.147.244.103/~versolec/api_v1/loginByEmail"
+        // firstname+lastname+email+Private Key
+        var checksum = txtEmail.text! +  txtPassword.text! + "gJmbPtUw4Ky7Il@p!6hPsdb*s89"
+        checksum = checksum.md5()
+        let parameter = ["email": txtEmail.text!,
+                         "password": txtPassword.text!,
+                         "deviceType": "iOS",
+                         "deviceId": Singleton.sharedInstance.deviceToken,
+                         "checksum": checksum]
+        
+        print(parameter)
+        
+        showNormalHud("Login in...")
+        
+        Alamofire.request(.POST, URL, parameters: parameter)
+            .responseJSON { response in
+                self.removeNormalHud()
+                switch response.result {
+                case .Success:
+                    if let value = response.result.value {
+                        let data = UserBase.init(object: value)
+                        
+                        if (Int(data.code!) == 200) {
+                            
+                            self.userDefault.rm_setCustomObject(data.data![0], forKey: "userDetail")
+                            self.userDefault.setValue(NSNumber(bool: true), forKey: "isLogin")
+                            self.userDefault.setValue(self.txtEmail.text, forKey: "userEmail")
+                            self.userDefault.setValue(self.txtPassword.text, forKey: "userPassword")
                             Singleton.sharedInstance.userData = data.data![0]
                             print(Singleton.sharedInstance.userData.address)
 //                            let test = self.userDefault.rm_customObjectForKey("userDetail") as! UserData

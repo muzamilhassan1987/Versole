@@ -15,6 +15,7 @@
 		1D0728BB1CA66C82009CCA71 /* UIViewController+MFSideMenuAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0728B81CA66C82009CCA71 /* UIViewController+MFSideMenuAdditions.m */; };
 		1D0728BE1CA66EA9009CCA71 /* LeftSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0728BD1CA66EA9009CCA71 /* LeftSideViewController.swift */; };
 		1D0728C01CA66EC3009CCA71 /* CentralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0728BF1CA66EC3009CCA71 /* CentralViewController.swift */; };
+		1D075CD71CF5F88300930DE3 /* ReviewOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2848A11C88DA6D0005148F /* ReviewOrderController.swift */; };
 		1D09471C1CE5EFCE00B8DD69 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D09471B1CE5EFCE00B8DD69 /* Singleton.swift */; };
 		1D09471E1CE66B8C00B8DD69 /* ZipErrorPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D09471D1CE66B8C00B8DD69 /* ZipErrorPopUp.swift */; };
 		1D0947201CE66B9B00B8DD69 /* ZipErrorPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D09471F1CE66B9B00B8DD69 /* ZipErrorPopUp.xib */; };
@@ -33,7 +34,6 @@
 		1D24E8751CE4B39C00B10C5D /* UIControl+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D24E8741CE4B39C00B10C5D /* UIControl+Blocks.m */; };
 		1D2645861C81D180004F433D /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2645851C81D180004F433D /* ResetPasswordController.swift */; };
 		1D2645881C81E827004F433D /* BuyCreditsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2645871C81E827004F433D /* BuyCreditsController.swift */; };
-		1D2848A21C88DA6D0005148F /* ReviewOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2848A11C88DA6D0005148F /* ReviewOrderController.swift */; };
 		1D32D9CB1C80F3AC00440C71 /* OrderConfirmationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D32D9CA1C80F3AC00440C71 /* OrderConfirmationController.swift */; };
 		1D32D9CD1C80F69B00440C71 /* ScheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D32D9CC1C80F69B00440C71 /* ScheduleController.swift */; };
 		1D32D9D11C81795F00440C71 /* MyPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D32D9D01C81795F00440C71 /* MyPickerView.swift */; };
@@ -84,8 +84,12 @@
 		1DA08FE81CA9A4150003489E /* UIView+Fold.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA08FE71CA9A4150003489E /* UIView+Fold.m */; };
 		1DAB92041CE0979D0075DC10 /* UserBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAB92021CE0979D0075DC10 /* UserBase.swift */; };
 		1DAB92051CE0979D0075DC10 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAB92031CE0979D0075DC10 /* UserData.swift */; };
+		1DB2222B1CF9D935001612FB /* HistoryOrderBaseClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB222291CF9D935001612FB /* HistoryOrderBaseClass.swift */; };
+		1DB2222C1CF9D935001612FB /* HistoryOrderOrderHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2222A1CF9D935001612FB /* HistoryOrderOrderHistory.swift */; };
 		1DB9A4271CDF1EBB008A8BA5 /* AppServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB9A4261CDF1EBB008A8BA5 /* AppServiceModel.swift */; };
 		1DB9A4291CDF282E008A8BA5 /* HelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB9A4281CDF282E008A8BA5 /* HelperMethods.swift */; };
+		1DC7E4EE1CF4E2CC00B46897 /* OrderConfirmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7E4ED1CF4E2CC00B46897 /* OrderConfirmController.swift */; };
+		1DC7E4F01CF4E2E000B46897 /* OrderCancelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7E4EF1CF4E2E000B46897 /* OrderCancelController.swift */; };
 		1DF6B6151C84B7DF009D047D /* CollapsableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6B6141C84B7DF009D047D /* CollapsableViewModel.swift */; };
 		1DF6B6171C84B817009D047D /* FAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6B6161C84B817009D047D /* FAQController.swift */; };
 		A9DF50BA170D335672E668C5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AFC78F63C260E99CC89DDA /* Pods.framework */; };
@@ -216,8 +220,12 @@
 		1DA08FE71CA9A4150003489E /* UIView+Fold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Fold.m"; sourceTree = "<group>"; };
 		1DAB92021CE0979D0075DC10 /* UserBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBase.swift; sourceTree = "<group>"; };
 		1DAB92031CE0979D0075DC10 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		1DB222291CF9D935001612FB /* HistoryOrderBaseClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOrderBaseClass.swift; sourceTree = "<group>"; };
+		1DB2222A1CF9D935001612FB /* HistoryOrderOrderHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOrderOrderHistory.swift; sourceTree = "<group>"; };
 		1DB9A4261CDF1EBB008A8BA5 /* AppServiceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppServiceModel.swift; sourceTree = "<group>"; };
 		1DB9A4281CDF282E008A8BA5 /* HelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperMethods.swift; sourceTree = "<group>"; };
+		1DC7E4ED1CF4E2CC00B46897 /* OrderConfirmController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmController.swift; sourceTree = "<group>"; };
+		1DC7E4EF1CF4E2E000B46897 /* OrderCancelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCancelController.swift; sourceTree = "<group>"; };
 		1DF6B6141C84B7DF009D047D /* CollapsableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapsableViewModel.swift; sourceTree = "<group>"; };
 		1DF6B6161C84B817009D047D /* FAQController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQController.swift; sourceTree = "<group>"; };
 		20AFC78F63C260E99CC89DDA /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,6 +325,8 @@
 				1D970C721C8AD67A00D1CE7F /* PickDateTimeController.swift */,
 				1D0728BF1CA66EC3009CCA71 /* CentralViewController.swift */,
 				1D22A1EF1CA7C42300301C00 /* HomeViewController.swift */,
+				1DC7E4ED1CF4E2CC00B46897 /* OrderConfirmController.swift */,
+				1DC7E4EF1CF4E2E000B46897 /* OrderCancelController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -542,6 +552,8 @@
 		1D9D97E01CDF3F4C00F81339 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1DB222291CF9D935001612FB /* HistoryOrderBaseClass.swift */,
+				1DB2222A1CF9D935001612FB /* HistoryOrderOrderHistory.swift */,
 				1D0947351CE8951000B8DD69 /* AddCreditBase.swift */,
 				1D0947311CE7916B00B8DD69 /* CreditBundleBase.swift */,
 				1D0947321CE7916B00B8DD69 /* CreditBundleData.swift */,
@@ -596,6 +608,7 @@
 				1D39EE5A1C7A14ED00EB0C57 /* Embed Frameworks */,
 				3DE2B88D9602D7219A4BE547 /* Embed Pods Frameworks */,
 				895F2AB9323ED54B54FF8091 /* Copy Pods Resources */,
+				1DAA2C981D79A9CC00E16462 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -654,6 +667,7 @@
 				TargetAttributes = {
 					1D5353901C78454A00C7535C = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = P6HJ8F56JD;
 					};
 					1D5353A41C78454A00C7535C = {
 						CreatedOnToolsVersion = 7.2;
@@ -716,6 +730,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1DAA2C981D79A9CC00E16462 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 025a18c26b0ef128d790270d446e9cf24ccd5634 d7f394d68e0b601c332b9135febe34799668aa694d081de1a03b05fb464f205e";
+		};
 		3DE2B88D9602D7219A4BE547 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -770,7 +797,6 @@
 			files = (
 				1D9D97F21CE06F9B00F81339 /* HIWCell.swift in Sources */,
 				1D4E4DBE1CAAF09900B8A7AC /* IQNSArray+Sort.swift in Sources */,
-				1D2848A21C88DA6D0005148F /* ReviewOrderController.swift in Sources */,
 				1D970C711C8AA94600D1CE7F /* OrderHistoryController.swift in Sources */,
 				1D4E4DC31CAAF09900B8A7AC /* IQUIWindow+Hierarchy.swift in Sources */,
 				1D0728BE1CA66EA9009CCA71 /* LeftSideViewController.swift in Sources */,
@@ -798,23 +824,27 @@
 				1D9D97E41CDF3F5A00F81339 /* SocialShareData.swift in Sources */,
 				1D39EEB01C80E8C600EB0C57 /* ContactUsController.swift in Sources */,
 				1D9D97F01CE06C3800F81339 /* HIWData.swift in Sources */,
+				1DB2222B1CF9D935001612FB /* HistoryOrderBaseClass.swift in Sources */,
 				1D2645881C81E827004F433D /* BuyCreditsController.swift in Sources */,
 				1D4E4DC21CAAF09900B8A7AC /* IQUIViewController+Additions.swift in Sources */,
 				1D39EEA61C7AEC1200EB0C57 /* SignUpController.swift in Sources */,
 				1D0947331CE7916B00B8DD69 /* CreditBundleBase.swift in Sources */,
 				1D39EEA41C7A158A00EB0C57 /* TextField.swift in Sources */,
 				1D4E4DC81CAAF09900B8A7AC /* IQTextView.swift in Sources */,
+				1DB2222C1CF9D935001612FB /* HistoryOrderOrderHistory.swift in Sources */,
 				1D09471E1CE66B8C00B8DD69 /* ZipErrorPopUp.swift in Sources */,
 				1D9D97E31CDF3F5A00F81339 /* SocialShareBase.swift in Sources */,
 				1D0947241CE70BB200B8DD69 /* PricingTextCell.swift in Sources */,
 				1D39EEAA1C7CD30800EB0C57 /* BillingController.swift in Sources */,
 				1D0947341CE7916B00B8DD69 /* CreditBundleData.swift in Sources */,
+				1D075CD71CF5F88300930DE3 /* ReviewOrderController.swift in Sources */,
 				1D493B8D1CA980FD0054B204 /* FaqCell.swift in Sources */,
 				1D4E4DCA1CAAF09900B8A7AC /* IQTitleBarButtonItem.swift in Sources */,
 				1D9D97EB1CDFBC2E00F81339 /* FAQBase.swift in Sources */,
 				1DF6B6171C84B817009D047D /* FAQController.swift in Sources */,
 				1D4E4DC71CAAF09900B8A7AC /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				1DAB92041CE0979D0075DC10 /* UserBase.swift in Sources */,
+				1DC7E4EE1CF4E2CC00B46897 /* OrderConfirmController.swift in Sources */,
 				1D0728BA1CA66C82009CCA71 /* MFSideMenuShadow.m in Sources */,
 				1D09471C1CE5EFCE00B8DD69 /* Singleton.swift in Sources */,
 				1D0947221CE7041700B8DD69 /* PricingViewController.swift in Sources */,
@@ -824,6 +854,7 @@
 				1D4E4DC91CAAF09900B8A7AC /* IQBarButtonItem.swift in Sources */,
 				1D9D97EC1CDFBC2E00F81339 /* FAQData.swift in Sources */,
 				1D0947291CE76AAC00B8DD69 /* PricingTextCredit.swift in Sources */,
+				1DC7E4F01CF4E2E000B46897 /* OrderCancelController.swift in Sources */,
 				1D4E4DC11CAAF09900B8A7AC /* IQUIView+Hierarchy.swift in Sources */,
 				1DA08FE81CA9A4150003489E /* UIView+Fold.m in Sources */,
 				1D4E4DC61CAAF09900B8A7AC /* IQKeyboardManager.swift in Sources */,
@@ -912,8 +943,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Creative Fish (MGV89JLQ25)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Creative Fish (MGV89JLQ25)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Versole, Inc. (P6HJ8F56JD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Versole, Inc. (P6HJ8F56JD)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -932,12 +963,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "bda07747-28cf-4f35-9b6c-b3e7e2441ef3";
+				PROVISIONING_PROFILE = "aaaf3153-3870-4127-bedf-cd2ca5b0fcc0";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/soomroshahid/Dropbox/Versole/Versole/Versole/MFSideMenu/Bridge-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/soomroshahid/Desktop/Projects/Versole/Versole/Versole/MFSideMenu/Bridge-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -959,8 +990,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Creative Fish (MGV89JLQ25)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Creative Fish (MGV89JLQ25)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Versole, Inc. (P6HJ8F56JD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Versole, Inc. (P6HJ8F56JD)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -973,11 +1004,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "bda07747-28cf-4f35-9b6c-b3e7e2441ef3";
+				PROVISIONING_PROFILE = "aaaf3153-3870-4127-bedf-cd2ca5b0fcc0";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/soomroshahid/Dropbox/Versole/Versole/Versole/MFSideMenu/Bridge-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/soomroshahid/Desktop/Projects/Versole/Versole/Versole/MFSideMenu/Bridge-Header.h";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -987,15 +1018,14 @@
 			baseConfigurationReference = DCD0570B63A928921D8872C8 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Creative Fish (MGV89JLQ25)";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Versole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.creativefish.versole;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edwards.versole;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bda07747-28cf-4f35-9b6c-b3e7e2441ef3";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/soomroshahid/Dropbox/Versole/Versole/Versole/MFSideMenu/Bridge-Header.h";
+				PROVISIONING_PROFILE = "aaaf3153-3870-4127-bedf-cd2ca5b0fcc0";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/soomroshahid/Desktop/Projects/Versole/Versole/Versole/MFSideMenu/Bridge-Header.h";
 			};
 			name = Debug;
 		};
@@ -1004,15 +1034,15 @@
 			baseConfigurationReference = 3C193489E7D7B75A382D822E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Creative Fish (MGV89JLQ25)";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Versole, Inc. (P6HJ8F56JD)";
 				INFOPLIST_FILE = Versole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.creativefish.versole;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edwards.versole;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bda07747-28cf-4f35-9b6c-b3e7e2441ef3";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/soomroshahid/Dropbox/Versole/Versole/Versole/MFSideMenu/Bridge-Header.h";
+				PROVISIONING_PROFILE = "aaaf3153-3870-4127-bedf-cd2ca5b0fcc0";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/soomroshahid/Desktop/Projects/Versole/Versole/Versole/MFSideMenu/Bridge-Header.h";
 			};
 			name = Release;
 		};
@@ -1022,7 +1052,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = VersoleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.creativefish.versole;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edwards.versole;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Versole.app/Versole";
@@ -1035,7 +1065,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = VersoleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.creativefish.versole;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edwards.versole;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Versole.app/Versole";
@@ -1047,7 +1077,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = VersoleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.creativefish.versole;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edwards.versole;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TEST_TARGET_NAME = Versole;
@@ -1060,7 +1090,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = VersoleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.creativefish.versole;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edwards.versole;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TEST_TARGET_NAME = Versole;

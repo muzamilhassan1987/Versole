@@ -8,36 +8,79 @@
 
 import UIKit
 import Stripe
+import Fabric
+import Crashlytics
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //TEST GIT NOW
     var window: UIWindow?
+    var mgSidemenuContainer:MFSideMenuContainerViewController!
+    
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // pk_live_IV7jA5OipDLiq0wkBOQb6cki  // LIVE 
+        // pk_test_BipPcLXsgat49DcvQMqcprFB  // TEST
         
+        Fabric.with([STPAPIClient.self, Crashlytics.self])  
         Stripe.setDefaultPublishableKey("pk_test_BipPcLXsgat49DcvQMqcprFB")
         
+        
+
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.login), name: "login", object: nil)
 
         // Override point for customization after application launch.
-        for family in UIFont.familyNames()
-        {
-            
-            print("\(family)")
-            
-            for name in UIFont.fontNamesForFamilyName(family as NSString as String)
-            {
-                print("   \(name)")
-            }
-            
-        }
+//        for family in UIFont.familyNames()
+//        {
+//            
+//            print("\(family)")
+//            
+//            for name in UIFont.fontNamesForFamilyName(family as NSString as String)
+//            {
+//                print("   \(name)")
+//            }
+//            
+//        }
+        
+//        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
+//        let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+//        application.registerUserNotificationSettings(pushNotificationSettings)
+//        application.registerForRemoteNotifications()
+        
         
         IQKeyboardManager.sharedManager().enable = true
     
         return true
     }
-
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        //print("DEVICE TOKEN = \(deviceToken)")
+        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+        var tokenString = ""
+        
+        for i in 0..<deviceToken.length {
+            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+        }
+        
+        //print("Device Token:", tokenString)
+        //NSLog("DeviceToken : %@", tokenString)
+        //EZAlertController.alert(tokenString)
+        //af386c64458b1883859f832bd0aec36391131830a369c5e569a0e1b1896e549f
+    }
+    
+    //Called if unable to register for APNS.
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        //print("Push Error is")
+        //print(error)
+        //EZAlertController.alert(error.description)
+        
+    }
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        //print("user info")
+        //print(userInfo)
+        //EZAlertController.alert(userInfo.description)
+    }
     func applicationWillResignActive(application: UIApplication) {
         
         
@@ -65,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func    login() {
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil);
         
-        let mgSidemenuContainer = mainStoryBoard.instantiateViewControllerWithIdentifier("MFSideMenuContainerViewController") as! MFSideMenuContainerViewController
+            mgSidemenuContainer = mainStoryBoard.instantiateViewControllerWithIdentifier("MFSideMenuContainerViewController") as! MFSideMenuContainerViewController
         
         self.window?.rootViewController = nil;
         self.window?.rootViewController = mgSidemenuContainer
@@ -89,7 +132,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let baseNavigationController = mainStoryBoard.instantiateViewControllerWithIdentifier("BaseNavigationController") as! UINavigationController
         self.window?.rootViewController = baseNavigationController
         self.window?.makeKeyAndVisible()
-        
+        NSUserDefaults.standardUserDefaults().setValue(NSNumber(bool: false), forKey: "isLogin")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("userEmail")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("userPassord")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("userDetail")
     }
     
 }

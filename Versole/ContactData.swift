@@ -16,6 +16,7 @@ public class ContactData: NSObject, Mappable, NSCoding {
 	internal let kContactDataContactEmailKey: String = "contactEmail"
 	internal let kContactDataContactCallKey: String = "contactCall"
 	internal let kContactDataContactTextKey: String = "contactText"
+    internal let kContactDataWebsiteKey: String = "website"
 
 
     // MARK: Properties
@@ -23,6 +24,7 @@ public class ContactData: NSObject, Mappable, NSCoding {
 	public var contactEmail: String?
 	public var contactCall: String?
 	public var contactText: String?
+    public var contactWebsite: String?
 
 
     // MARK: SwiftyJSON Initalizers
@@ -45,6 +47,8 @@ public class ContactData: NSObject, Mappable, NSCoding {
 		contactEmail = json[kContactDataContactEmailKey].string
 		contactCall = json[kContactDataContactCallKey].string
 		contactText = json[kContactDataContactTextKey].string
+        contactWebsite = json[kContactDataWebsiteKey].string
+        
 
     }
 
@@ -66,7 +70,7 @@ public class ContactData: NSObject, Mappable, NSCoding {
 		contactEmail <- map[kContactDataContactEmailKey]
 		contactCall <- map[kContactDataContactCallKey]
 		contactText <- map[kContactDataContactTextKey]
-
+        contactWebsite <- map[kContactDataWebsiteKey]
     }
 
     /**
@@ -88,6 +92,9 @@ public class ContactData: NSObject, Mappable, NSCoding {
 		if contactText != nil {
 			dictionary.updateValue(contactText!, forKey: kContactDataContactTextKey)
 		}
+        if contactWebsite != nil {
+            dictionary.updateValue(contactWebsite!, forKey: kContactDataWebsiteKey)
+        }
 
         return dictionary
     }
@@ -98,6 +105,7 @@ public class ContactData: NSObject, Mappable, NSCoding {
 		self.contactEmail = aDecoder.decodeObjectForKey(kContactDataContactEmailKey) as? String
 		self.contactCall = aDecoder.decodeObjectForKey(kContactDataContactCallKey) as? String
 		self.contactText = aDecoder.decodeObjectForKey(kContactDataContactTextKey) as? String
+        self.contactWebsite = aDecoder.decodeObjectForKey(kContactDataWebsiteKey) as? String
 
     }
 
@@ -106,6 +114,7 @@ public class ContactData: NSObject, Mappable, NSCoding {
 		aCoder.encodeObject(contactEmail, forKey: kContactDataContactEmailKey)
 		aCoder.encodeObject(contactCall, forKey: kContactDataContactCallKey)
 		aCoder.encodeObject(contactText, forKey: kContactDataContactTextKey)
+        aCoder.encodeObject(contactWebsite, forKey: kContactDataWebsiteKey)
 
     }
 

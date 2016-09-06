@@ -77,9 +77,11 @@ typedef enum {
 - (void)setDefaultSettings {
     if(self.menuContainerView) return;
     
+    UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
+    NSLog(@"%@",NSStringFromCGRect(keyWindow.frame));
     self.menuContainerView = [[UIView alloc] init];
     self.menuState = MFSideMenuStateClosed;
-    self.menuWidth = 310.0f;
+    self.menuWidth = keyWindow.frame.size.width - 100.0f;
     self.menuSlideAnimationFactor = 3.0f;
     self.menuAnimationDefaultDuration = 0.2f;
     self.menuAnimationMaxDuration = 0.4f;

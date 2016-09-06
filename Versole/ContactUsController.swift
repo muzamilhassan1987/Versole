@@ -10,10 +10,16 @@ import UIKit
 import Alamofire
 import MessageUI
 import EZAlertController
+import KILabel
 class ContactUsController: BaseController,MFMailComposeViewControllerDelegate {
 
-    @IBOutlet weak var lblCall: UILabel!
-    @IBOutlet weak var lblText: UILabel!
+    
+    
+    @IBOutlet var btnEmail: UIButton!
+    @IBOutlet var btnMsg: UIButton!
+    @IBOutlet var btnCall: UIButton!
+    @IBOutlet weak var lblCall: KILabel!
+    @IBOutlet weak var lblText: KILabel!
     @IBOutlet weak var lblEmail: UILabel!
     var isDataLoaded: Bool!
     var contactData:ContactData!
@@ -26,6 +32,8 @@ class ContactUsController: BaseController,MFMailComposeViewControllerDelegate {
         lblEmail.text = ""
         lblCall.text = ""
         isDataLoaded = false
+        btnMsg.hidden = true
+        btnCall.hidden = true
         
     }
     override func viewWillAppear(animated: Bool)    {
@@ -44,10 +52,15 @@ class ContactUsController: BaseController,MFMailComposeViewControllerDelegate {
         
         let firstAttribute = [NSFontAttributeName:UIFont(
             name: "Avenir-HeavyOblique",
-            size: 18.0)!]
+            size: 16.0)!]
+        
+
+
+
+        
         let secondAttribute = [NSFontAttributeName:UIFont(
             name: "Avenir-HeavyOblique",
-            size: 18.0)!]
+            size: 16.0)!]
         
         let txtDisplay = NSMutableAttributedString(
             string: firstText,
@@ -80,11 +93,32 @@ class ContactUsController: BaseController,MFMailComposeViewControllerDelegate {
                 switch response.result {
                 case .Success:
                     if let value = response.result.value {
+                        print(value)
                         let data = ContactBase.init(object: value)
                         self.contactData = data.data![0]
-                        self.updateData("Text: ", SecondText: self.contactData.contactText!, lblRefrence: self.lblText)
-                        self.updateData("Email: ", SecondText: self.contactData.contactEmail!, lblRefrence: self.lblEmail)
+                        self.updateData("Email: ", SecondText: self.contactData.contactEmail!, lblRefrence: self.lblText)
+//                        self.updateData("Website: ", SecondText: self.contactData.contactEmail!, lblRefrence: self.lblEmail)
+                        //"http://www.versole.com"
+                        self.updateData("Website: ", SecondText: self.contactData.contactWebsite!, lblRefrence: self.lblEmail)
                         self.updateData("Call: ", SecondText: self.contactData.contactCall!, lblRefrence: self.lblCall)
+                        
+                        self.lblText.text = "Website: " + self.contactData.contactWebsite!
+                        self.lblCall.text = "Email: " + self.contactData.contactEmail!
+                        
+                    
+                        self.lblCall.urlLinkTapHandler = { label, handle, range in
+                            NSLog("User handle \(handle) tapped")
+                            print("dffgdgfd")
+                            self.email()
+                        }
+                        self.lblText.urlLinkTapHandler = { label, handle, range in
+                            NSLog("User handle \(handle) tapped")
+                            //self.emaiZZ
+                            UIApplication.sharedApplication().openURL(NSURL(string: self.contactData.contactWebsite!)!)
+                        }
+                       // self.updateData("Email: ", SecondText: self.contactData.contactEmail!, lblRefrence: self.lblCall)
+                        //self.updateData("Website: ", SecondText: "http://www.versole.com", lblRefrence: self.lblText)
+                        self.lblEmail.text = ""
 //                        self.lblSocialData.text = self.socialData.shareText
 //                        print (self.socialData.shareText! as String);
                         self.isDataLoaded = true
@@ -120,9 +154,9 @@ class ContactUsController: BaseController,MFMailComposeViewControllerDelegate {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             
-            mail.setToRecipients(["nurdin@gmail.com"])
-            mail.setSubject("Sending you an in-app e-mail...")
-            mail.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
+            mail.setToRecipients([self.contactData.contactEmail!])
+            mail.setSubject("Information...")
+            mail.setMessageBody("To Admin", isHTML: false)
             
             
             presentViewController(mail, animated: true, completion: nil)

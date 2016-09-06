@@ -11,13 +11,15 @@ import Alamofire
 import CryptoSwift
 import EZAlertController
 
-
 class SignUpController: BaseController {
 
+    
     var popUp:ZipErrorPopUp!
     
     var profileData:UserData!
     
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var btnSignUp: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
     
@@ -30,18 +32,30 @@ class SignUpController: BaseController {
     @IBOutlet weak var txtPhoneNumber: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var imgPassword: UIImageView!
+    @IBOutlet weak var txtCity: UITextField!
+    
+    override func viewDidLayoutSubviews() {
+        
+        scrollView.contentSize = CGSizeMake(scrollView.contentSize.width,txtPassword.frame.origin.y+txtPassword.frame.size.height+50)
+        
+        //scrollView.contentSize = CGSizeMake(scrollView.contentSize.width,self.view.frame.height+100)
+        
+         //scrollView.contentSize = CGSizeMake(scrollView.contentSize.width,contentView.frame.height)
+    }
     
     override func viewDidLoad() {
+        
         
         
         if(self.menuContainerViewController == nil) {
             currentController = Controllers.SignUp
             btnSignUp.setTitle("Sign Up", forState: .Normal)
-            btnCancel.setTitle("Password?", forState: .Normal)
-            print("Not loaded")
+            btnCancel.setTitle("Cancel", forState: .Normal)
+            //print("Not loaded")
         }
         else {
-            print("loaded")
+            //print("loaded")
+            
             currentController = Controllers.Profile
             print(self.menuContainerViewController)
             btnSignUp.setTitle("Save", forState: .Normal)
@@ -52,7 +66,9 @@ class SignUpController: BaseController {
             loadProfile()
             
         }
+//        scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, self.view.frame.height+2000)
         super.viewDidLoad()
+        
         
         // Do any additional setup after loading the view.
     }
@@ -79,6 +95,8 @@ class SignUpController: BaseController {
         txtAPT.text = profileData.apt
         txtZipCode.text = profileData.zipcode
         txtPassword.text = profileData.password
+        txtCity.text = profileData.city
+        
     }
     
 
@@ -94,6 +112,8 @@ class SignUpController: BaseController {
 //        txtPassword.text = "123456"
         
        //EZAlertController.alert("Alert", message: "")
+        
+        
         if(!HelperMethods.validateStringLength(txtName.text!)) {
             EZAlertController.alert("Alert", message: "Enter first name")
             return
@@ -118,12 +138,13 @@ class SignUpController: BaseController {
             EZAlertController.alert("Alert", message: "Enter address")
             return
         }
-        if(!HelperMethods.validateStringLength(txtAPT.text!)) {
-            EZAlertController.alert("Alert", message: "Enter APT")
-            return
-        }
+        
         if(!HelperMethods.validateStringLength(txtZipCode.text!)) {
             EZAlertController.alert("Alert", message: "Enter zip code")
+            return
+        }
+        if(!HelperMethods.validateStringLength(txtCity.text!)) {
+            EZAlertController.alert("Alert", message: "Enter city")
             return
         }
         if(!HelperMethods.validateStringLength(txtPassword.text!)) {
@@ -132,6 +153,23 @@ class SignUpController: BaseController {
         }
         if(txtPassword.text?.characters.count < 6) {
             EZAlertController.alert("Alert", message: "Password length must be greater than five characters")
+            return
+        }
+        
+        if(!HelperMethods.validateStringLength(txtAPT.text!)) {
+            
+            EZAlertController.alert("Alert", message: "You have not entered an apartment number, proceed anyway?", buttons: ["Yes", "No"]) { (alertAction, position) -> Void in
+                if position == 0 {
+                    if(self.currentController == Controllers.SignUp) {
+                        self.callSignUpService()
+                    }
+                    else if(self.currentController == Controllers.Profile) {
+                        self.callUpdateProfileService()
+                    }
+                } else if position == 1 {
+                    return
+                }
+            }
             return
         }
         
@@ -151,6 +189,7 @@ class SignUpController: BaseController {
        // firstname+lastname+email+Private Key
         var checksum = txtName.text! + txtLastName.text! + txtEmail.text! + "gJmbPtUw4Ky7Il@p!6hPsdb*s89"
         checksum = checksum.md5()
+        
         let parameter = ["firstname": txtName.text!,
                           "lastname": txtLastName.text!,
                           "email": txtEmail.text!,
@@ -158,12 +197,14 @@ class SignUpController: BaseController {
                           "address": txtAddress.text!,
                           "apt": txtAPT.text!,
                           "deviceType": "iOS",
-                          "deviceId": "dssdds",
+                          "deviceId": Singleton.sharedInstance.deviceToken,
                           "zipcode": txtZipCode.text!,
                           "password": txtPassword.text!,
+                          "city": txtCity.text!,
                           "checksum": checksum]
         
         print(parameter)
+        
         
         showNormalHud("Registering user...")
         Alamofire.request(.POST, URL, parameters: parameter)
@@ -219,6 +260,7 @@ class SignUpController: BaseController {
                          "address": txtAddress.text!,
                          "apt": txtAPT.text!,
                          "zipcode": txtZipCode.text!,
+                         "city": txtCity.text!,
                          "checksum": checksum]
         
         print(parameter)
@@ -312,7 +354,17 @@ class SignUpController: BaseController {
         }
     }
     
-    
+    @IBAction func cancel() {
+        
+        if(currentController == Controllers.SignUp) {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        else if(currentController == Controllers.Profile) {
+            let controller = appDelegate.mgSidemenuContainer.leftMenuViewController as! LeftSideViewController
+            controller.setHomeScreen()
+        }
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

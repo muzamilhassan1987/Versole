@@ -21,7 +21,8 @@ class BuyCreditsController: BaseController {
         
         currentController = Controllers.BuyCredit
         super.viewDidLoad()
-        lblCreditCount.text = Singleton.sharedInstance.userData.creditCount
+        
+        //lblCreditCount.text = "test"
         tblListing.delaysContentTouches = false
         //fillArray()
         isDataLoaded = false
@@ -30,6 +31,7 @@ class BuyCreditsController: BaseController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         lblTitle.text = "Buy Credits"
+        lblCreditCount.text = Singleton.sharedInstance.userData.creditCount
         
     }
     override func viewDidAppear(animated: Bool) {

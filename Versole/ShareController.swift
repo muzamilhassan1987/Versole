@@ -8,7 +8,10 @@
 
 import UIKit
 import Alamofire
-class ShareController: BaseController {
+import MessageUI
+import EZAlertController
+import Social
+class ShareController: BaseController,MFMailComposeViewControllerDelegate {
 
     var socialData:SocialShareData!
     @IBOutlet weak var  distanceConstrain:NSLayoutConstraint!
@@ -81,7 +84,47 @@ class ShareController: BaseController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func facebookShare() {
+        
+        let vc = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        vc.setInitialText("http://www.photolib.noaa.gov/nssl")
+//        vc.addURL(NSURL(string: "http://www.photolib.noaa.gov/nssl"))
+        presentViewController(vc, animated: true, completion: nil)
+        
+    }
+    @IBAction func twitterShare() {
+        
+        let vc = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+        vc.setInitialText("http://www.photolib.noaa.gov/nssl")
+//        vc.addURL(NSURL(string: "http://www.photolib.noaa.gov/nssl"))
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    @IBAction func messageShare() {
+        
+        let url:NSURL = NSURL(string: "sms:9809088798")!
+        
+        if (UIApplication.sharedApplication().canOpenURL(url))
+        {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    @IBAction func emailShare() {
+        
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            
+            mail.setToRecipients(["nurdin@gmail.com"])
+            mail.setSubject("Sending you an in-app e-mail...")
+            mail.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
+            
+            
+            presentViewController(mail, animated: true, completion: nil)
+        } else {
+            // show failure alert
+            EZAlertController.alert("Alert", message: "Your device could not send e-mail.  Please configure your email in setting.")
+        }
+    }
     /*
     // MARK: - Navigation
 

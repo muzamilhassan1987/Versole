@@ -13,20 +13,28 @@ class LeftSideViewController: UIViewController {
      @IBOutlet weak var tblListign: UITableView!
     var lblLastSelected:UILabel!
     var shoppingList: NSArray!
-    var selectedIndex:NSInteger!;
+    var selectedIndex:NSInteger!
+    var rowHeight:Double!
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        shoppingList = ["Home","Pricing","FAQs","Contact Us","Profile","Billing","Order History","Share"]
+        shoppingList = ["Home","Pricing","FAQs","Contact Us","Profile","Order History","Share"]
+//        shoppingList = ["Home","Pricing","FAQs","Contact Us","Profile","Billing","Order History","Share"]
         selectedIndex = 0;
+//        let int: Int = shoppingList.count
+       // let cgfloat = Double(shoppingList.count)
+        //let cgfloat1 = Double(self.tblListign.frame.size.height)
+        rowHeight = Double(self.tblListign.frame.size.height) / Double(shoppingList.count)
+        
         tblListign.reloadData()
         // Do any additional setup after loading the view.
     }
 
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-//    {
-//        return 20.0;//Choose your custom row height
-//    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
+        return CGFloat(rowHeight)
+        //return 20.0;//Choose your custom row height
+    }
     
     func tableView(tableView: UITableView, hei section: Int) -> Int {
         return shoppingList.count;
@@ -56,7 +64,7 @@ class LeftSideViewController: UIViewController {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-
+       // self.navigationController?.viewControllers.removeAll()
         lblLastSelected.textColor = UIColor(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 1.0)
         
         selectedIndex = indexPath.row
@@ -68,10 +76,10 @@ class LeftSideViewController: UIViewController {
 //
         case 0:
             let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("HomeViewController") as! HomeViewController
-            let navigationController = self.menuContainerViewController.centerViewController
+            let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
             
            // if navigationController.viewControllers.last is HomeViewController {
-                
+                navigationController.viewControllers.removeAll()
                 navigationController.pushViewController(selectedController, animated: true)
             //}
             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: { () -> Void in
@@ -79,10 +87,10 @@ class LeftSideViewController: UIViewController {
             break;
         case 1:
             let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("PricingViewController") as! PricingViewController
-            let navigationController = self.menuContainerViewController.centerViewController
+            let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
             
             // if navigationController.viewControllers.last is HomeViewController {
-            
+            navigationController.viewControllers.removeAll()
             navigationController.pushViewController(selectedController, animated: true)
             //}
             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: { () -> Void in
@@ -90,10 +98,10 @@ class LeftSideViewController: UIViewController {
             break;
         case 2:
             let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("FAQController") as! FAQController
-            let navigationController = self.menuContainerViewController.centerViewController
+            let navigationController = self.menuContainerViewController.centerViewController  as! UINavigationController
             
             // if navigationController.viewControllers.last is HomeViewController {
-            
+            navigationController.viewControllers.removeAll()
             navigationController.pushViewController(selectedController, animated: true)
             //}
             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: { () -> Void in
@@ -103,7 +111,7 @@ class LeftSideViewController: UIViewController {
             
             let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("ContactUsController") as! ContactUsController
             let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
-            
+            navigationController.viewControllers.removeAll()
             //if navigationController.viewControllers.last! is ContactUsController {
                 
                 navigationController.pushViewController(selectedController, animated: true)
@@ -115,7 +123,7 @@ class LeftSideViewController: UIViewController {
             
             let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("SignUpController") as! SignUpController
             let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
-            
+            navigationController.viewControllers.removeAll()
             //if navigationController.viewControllers.last! is ContactUsController {
             
             navigationController.pushViewController(selectedController, animated: true)
@@ -123,11 +131,23 @@ class LeftSideViewController: UIViewController {
             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: { () -> Void in
             })
             break;
+//        case 5:
+//            
+//            let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("BillingController") as! BillingController
+//            let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
+//            navigationController.viewControllers.removeAll()
+//            //if navigationController.viewControllers.last! is ContactUsController {
+//            
+//            navigationController.pushViewController(selectedController, animated: true)
+//            //}
+//            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: { () -> Void in
+//            })
+//            break;
         case 5:
             
-            let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("BillingController") as! BillingController
+            let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("OrderHistoryController") as! OrderHistoryController
             let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
-            
+            navigationController.viewControllers.removeAll()
             //if navigationController.viewControllers.last! is ContactUsController {
             
             navigationController.pushViewController(selectedController, animated: true)
@@ -137,23 +157,11 @@ class LeftSideViewController: UIViewController {
             break;
         case 6:
             
-            let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("OrderHistoryController") as! OrderHistoryController
-            let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
-            
-            //if navigationController.viewControllers.last! is ContactUsController {
-            
-            navigationController.pushViewController(selectedController, animated: true)
-            //}
-            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: { () -> Void in
-            })
-            break;
-        case 7:
-            
             let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("ShareController") as! ShareController
             let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
             
             //if navigationController.viewControllers.last! is ContactUsController {
-            
+            navigationController.viewControllers.removeAll()
             navigationController.pushViewController(selectedController, animated: true)
             //}
             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: { () -> Void in
@@ -188,6 +196,42 @@ class LeftSideViewController: UIViewController {
         
         
         
+    }
+    
+    func setHomeScreen() {
+        
+        lblLastSelected.textColor = UIColor(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 1.0)
+        
+        selectedIndex = 0
+        tblListign.reloadData()
+        
+        let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("HomeViewController") as! HomeViewController
+        let navigationController = self.menuContainerViewController.centerViewController
+        
+        // if navigationController.viewControllers.last is HomeViewController {
+        
+        navigationController.pushViewController(selectedController, animated: false)
+        //}
+        self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: { () -> Void in
+        })
+    }
+    
+    func setContactUsScreen() {
+        
+        lblLastSelected.textColor = UIColor(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 1.0)
+        
+        selectedIndex = 3
+        tblListign.reloadData()
+        
+        let selectedController = self.storyboard?.instantiateViewControllerWithIdentifier("ContactUsController") as! ContactUsController
+        let navigationController = self.menuContainerViewController.centerViewController
+        
+        // if navigationController.viewControllers.last is HomeViewController {
+        
+        navigationController.pushViewController(selectedController, animated: false)
+        //}
+        self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: { () -> Void in
+        })
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

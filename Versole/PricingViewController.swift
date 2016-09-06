@@ -103,8 +103,10 @@ class PricingViewController: BaseController {
         if(indexPath.row == 0) {
             
             cell.lblHeader.text = self.pricingText.heading
-            cell.lblDescription.text = self.pricingText.body
-            cell.lblSubHeader.text = self.pricingText.subheading
+           // cell.lblDescription.text = self.pricingText.body
+            cell.lblDescription.text = "Simple, straightforward, and no surprises.\n\nONE credit is equal to ONE item"
+//            cell.lblSubHeader.text = self.pricingText.subheading
+            cell.lblSubHeader.text = ""
             
         }
         else {
@@ -166,7 +168,11 @@ class PricingViewController: BaseController {
      let obj5:NSMutableDictionary!  = [ : ]
      
      obj1.setValue("Pricing made easy.", forKey: "question")
-        obj1.setValue("Simple, straightforward pricing based on a credit system so there are never any surprises.\nSingle credits starting at $40 and can be as little as $28 when you buy in bulk.One credit = one pair of shoes, one handbag or one piece of luggage", forKey: "answer")
+//        obj1.setValue("Simple, straightforward pricing based on a credit system so there are never any surprises.\nSingle credits starting at $40 and can be as little as $28 when you buy in bulk.One credit = one pair of shoes, one handbag or one piece of luggage", forKey: "answer")
+        
+        obj1.setValue("Simple, straightforward, and no surprises.", forKey: "answer")
+        
+        
         obj1.setValue("CREDITS STARTING AT $40:", forKey: "answer1")
      obj1.setValue("0", forKey: "isOpen")
      

@@ -43,7 +43,7 @@ pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 
 pod 'ObjectMapper', '~> 1.2'
 
-
+pod 'KILabel', '1.0.0'
 
 platform :ios, '8.0'
 use_frameworks!
@@ -52,3 +52,9 @@ pod 'EZAlertController', '0.3'
 
 pod 'JGProgressHUD'
 pod 'RMMapper'
+
+platform :ios, '8.0'
+pod 'Toast-Swift', '~> 1.3.0'
+
+pod 'Fabric'
+pod 'Crashlytics'

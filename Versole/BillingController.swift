@@ -20,6 +20,7 @@ class BillingController: BaseController {
     var selectedYear:Int!
     var eCurrentPickerType : ePickerType!
     var myPickerView:MyPickerView!
+    var eToController:eGotoToController!
     var arrPicker:NSMutableArray = NSMutableArray()
     
     var creditBundle:CreditBundleData!
@@ -42,13 +43,42 @@ class BillingController: BaseController {
         super.viewWillAppear(animated)
         lblTitle.text = "Billing"
         btnShowCredit.setTitle(Singleton.sharedInstance.userData.creditCount, forState: .Normal)
-        
+        setCardDetails()
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         
+        
+        
     }
+    
+    func setCardDetails() {
+        
+        if (self.userDefault.valueForKey("isCardArray") != nil) {
+            
+            let  arrList = self.userDefault.valueForKey("isCardArray") as! NSMutableArray
+            print(arrList)
+            let predicate = NSPredicate(format: "SELF.userid == %@",Singleton.sharedInstance.userData.userId!)
+            //let predicate = NSPredicate(format: "SELF.userid == %@","44")
+            let results:NSArray = arrList.filteredArrayUsingPredicate(predicate)
+            print(results)
+            if(results.count == 0) {
+                return
+            }
+            let obj = results[0]
+            print(obj)
+            txtCardNumber.text = obj.objectForKey("cardnumber") as? String
+            txtExpireMonth.text = obj.objectForKey("cardmonth") as? String
+            txtExpireYear.text = obj.objectForKey("cardyear") as? String
+            txtCCV.text = obj.objectForKey("cardccv") as? String
+            selectedYear = obj.objectForKey("selectedYear") as! Int
+            selectedMonth = obj.objectForKey("selectedMonth") as! Int
+        }
+        
+        
+    }
+    
     @IBAction func monthClick(sender: AnyObject) {
         
         self.view.endEditing(true)
@@ -145,14 +175,97 @@ class BillingController: BaseController {
 //        
         self.myPickerView?.removeFromSuperview()
     }
+    
+    func addCardDetails() {
+        
+        
+        let  arrList:NSMutableArray
+        let predicate:NSPredicate
+        let results:NSArray
+        
+        if (self.userDefault.valueForKey("isCardArray") != nil) {
+            arrList = (self.userDefault.valueForKey("isCardArray") as! NSMutableArray).mutableCopy() as! NSMutableArray
+        }
+        else {
+            arrList = NSMutableArray()
+        }
+        let object:NSMutableDictionary!  = [ : ]
+        object.setValue(txtCardNumber.text, forKey: "cardnumber")
+        object.setValue(txtExpireMonth.text, forKey: "cardmonth")
+        object.setValue(txtExpireYear.text, forKey: "cardyear")
+        object.setValue(txtCCV.text, forKey: "cardccv")
+        object.setValue(selectedYear, forKey: "selectedYear")
+        object.setValue(selectedMonth, forKey: "selectedMonth")
+        object.setValue(Singleton.sharedInstance.userData.userId, forKey: "userid")
+        
+        print(selectedYear)
+        print(selectedMonth)
+        print(arrList)
+        predicate = NSPredicate(format: "SELF.userid == %@",Singleton.sharedInstance.userData.userId!)
+        results = arrList.filteredArrayUsingPredicate(predicate)
+        print(results)
+        if(results.count > 0) {
+            
+            let index = arrList.indexOfObject(results[0])
+            arrList.replaceObjectAtIndex(index, withObject: object)
+        }
+            
+        else {
+            arrList.addObject(object)
+        }
+        
+        self.userDefault.setObject(arrList, forKey:"isCardArray")
+        self.userDefault.synchronize()
+      
+        
+        
+        
+        let  testarray = self.userDefault.valueForKey("isCardArray") as! NSMutableArray
+        print(testarray)
+    }
+    
+    /*
+    
+    @IBAction func payToStripe(sender: AnyObject) {
+        showNormalHud("Wait fetching token...")
+        
+        addCardDetails()
+//        let arr:NSMutableArray = NSMutableArray()
+//        
+//        let object:NSMutableDictionary!  = [ : ]
+//        object.setValue(txtCardNumber.text, forKey: "cardnumber")
+//        object.setValue(txtExpireMonth.text, forKey: "cardmonth")
+//        object.setValue(txtExpireYear.text, forKey: "cardyear")
+//        object.setValue(txtCCV.text, forKey: "cardccv")
+//        object.setValue(Singleton.sharedInstance.userData.userId, forKey: "userid")
+//        arr.addObject(object)
+//        
+//        userDefault.setObject(arr, forKey: "isCardArray")
+//        userDefault.synchronize()
+//        
+//        let arrayOfImages = userDefault.objectForKey("isCardArray")
+//        print(arrayOfImages)
+//        
+//        print(txtCardNumber.text)
+//        print(txtExpireMonth.text)
+//        print(txtExpireYear.text)
+//        print(txtCCV.text)
+        
+        
+       // addMoreCredit()
+    }
+    */
     @IBAction func payToStripe(sender: AnyObject) {
         
-        txtCardNumber.text = "4242424242424242"
-        txtExpireMonth.text = "8"
-        txtCCV.text = "123"
-        txtExpireYear.text = "2020"
-        selectedMonth = 8
-        selectedYear = 2020
+        
+//        txtCardNumber.text = "4242424242424242"
+//        txtExpireMonth.text = "8"
+//        txtCCV.text = "123"
+//        txtExpireYear.text = "2020"
+//        selectedMonth = 8
+//        selectedYear = 2020
+        
+        
         if(!HelperMethods.validateStringLength(txtCardNumber.text!) &&
             txtCardNumber.text?.characters.count != 16) {
             EZAlertController.alert("Alert", message: "Enter 16 digit card number")
@@ -183,7 +296,10 @@ class BillingController: BaseController {
         stripCard.expMonth = UInt(selectedMonth)
         stripCard.expYear =  UInt(selectedYear)
         
-        var underlyingError: NSError?
+        
+        self.view.endEditing(true)
+        showNormalHud("Wait fetching token...")
+        
         if STPCardValidator.validationStateForCard(stripCard) == .Valid {
             // the card is valid.
             print("error")
@@ -194,21 +310,26 @@ class BillingController: BaseController {
             if error != nil {
                 //self.handleError(error!)
                 print(error!)
+                self.removeNormalHud()
+                EZAlertController.alert("Alert", message: (error?.localizedDescription)!)
                 return
             }
             
             
-            self.postStripeTokenNow(token!)
+            self.sendTokenToServer(token!)
+//            self.postStripeTokenNow(token!)
         })
     }
-    
-    func postStripeToken(token: STPToken)  {
+ 
+    func sendTokenToServer(token: STPToken)  {
         
-        let amountInCent = "300"
+        let amountInCent = Int(creditBundle.price!)!*100
+        print(amountInCent)
+        //amountInCent = 100
         self.view.endEditing(true)
         let URL: String = "http://66.147.244.103/~versolec/api_v1/chargeCard"
         // firstname+lastname+email+Private Key
-        var checksum = amountInCent +  token.tokenId + "gJmbPtUw4Ky7Il@p!6hPsdb*s89"
+        var checksum = String(amountInCent) +  token.tokenId + "gJmbPtUw4Ky7Il@p!6hPsdb*s89"
         checksum = checksum.md5()
         let parameter = ["amountInCents": amountInCent,
                          "token": token.tokenId,
@@ -216,31 +337,37 @@ class BillingController: BaseController {
                          "checksum": checksum]
         
         print(parameter)
+        removeNormalHud()
+        showNormalHud("Wait payment in progress...")
         
-        showNormalHud("Requesting Server...")
-        
-        Alamofire.request(.POST, URL, parameters: parameter)
+        Alamofire.request(.POST, URL, parameters: parameter as? [String : AnyObject])
             .responseJSON { response in
                 self.removeNormalHud()
                 switch response.result {
                 case .Success:
                     if let value = response.result.value {
+                        print(value)
+                        print(response)
+                        print(response.result)
                         let data = UserBase.init(object: value)
-                        
-                        if (Int(data.code!) == 200) {
-                            
-                            self.userDefault.rm_setCustomObject(data.data![0], forKey: "userDetail")
-                            Singleton.sharedInstance.userData = data.data![0]
-                            print(Singleton.sharedInstance.userData.address)
-                            //                            let test = self.userDefault.rm_customObjectForKey("userDetail") as! UserData
-                            //                            print(test.firstname)
-                            //                            print(test.creditCount)
-                            // print(userDefault.rm_customObjectForKey("userDetail"))
-                            NSNotificationCenter.defaultCenter().postNotificationName("login", object: nil)
+                        print(data)
+                        if (data.status != nil) {
+                            if (data.status! == "succeeded") {
+                                self.addCardDetails()
+                                self.addMoreCredit()
+                            }
+                            else {
+                                
+                            }
                         }
                         else {
-                            EZAlertController.alert("Alert", message: data.msg!)
+                            if ( value.valueForKey("error") != nil) {
+                                EZAlertController.alert("Alert", message:value.valueForKey("error")!.valueForKey("message")! as! String)
+                            }
+                           // EZAlertController.alert("Alert", message: (error?.localizedDescription)!)
                         }
+                        
+                        
                         
                     }
                 case .Failure(let error):
@@ -252,7 +379,7 @@ class BillingController: BaseController {
     }
     
     
-    func postStripeTokenNow(token: STPToken) {
+    func addMoreCredit() {
         //Singleton.sharedInstance.userData.userId!
         self.view.endEditing(true)
         let URL: String = "http://66.147.244.103/~versolec/api_v1/addmoreCredit"
@@ -265,8 +392,8 @@ class BillingController: BaseController {
                          "checksum": checksum]
         
         print(parameter)
-        
-        showNormalHud("Waiting...")
+        removeNormalHud()
+        showNormalHud("Adding credit to account...")
         
         Alamofire.request(.POST, URL, parameters: parameter)
             .responseJSON { response in
@@ -282,9 +409,12 @@ class BillingController: BaseController {
                             print(userDetail.creditCount)
                             userDetail.creditCount = data.userCredit
                             self.userDefault.rm_setCustomObject(userDetail, forKey: "userDetail")
-                            let userDetail1 = self.userDefault.rm_customObjectForKey("userDetail") as! UserData
-                            print(userDetail1.creditCount)
                             Singleton.sharedInstance.userData.creditCount = userDetail.creditCount
+                            
+                            EZAlertController.alert("Alert", message: data.msg!, acceptMessage: "OK") { () -> () in
+                                //self.gotoController()
+                                self.navigationController?.popViewControllerAnimated(true)
+                            }
                         }
                         else {
                             EZAlertController.alert("Alert", message: data.msg!)
@@ -298,27 +428,33 @@ class BillingController: BaseController {
                 
         }
         
-        
-//        let URL = "http://localhost/donate/payment.php"
-//        let params = ["stripeToken": token.tokenId,
-//                      "amount": self.amountTextField.text.toInt()!,
-//                      "currency": "usd",
-//                      "description": self.emailTextField.text]
-//        
-//        let manager = AFHTTPRequestOperationManager()
-//        manager.POST(URL, parameters: params, success: { (operation, responseObject) -> Void in
-//            
-//            if let response = responseObject as? [String: String] {
-//                UIAlertView(title: response["status"],
-//                    message: response["message"],
-//                    delegate: nil,
-//                    cancelButtonTitle: "OK").show()
-//            }
-//            
-//        }) { (operation, error) -> Void in
-//            self.handleError(error!)
-//        }
+
     }
+    
+    
+        func gotoController() {
+            
+            let count = self.navigationController?.viewControllers.count
+            
+            
+            if(self.eToController == eGotoToController.eGotoToControllerSchedule) {
+            
+                for index in 0.stride(to: count!, by: +1) {
+                    if(self.navigationController?.viewControllers[index].isKindOfClass(ScheduleController) == true) {
+                        
+                        self.navigationController?.popToViewController(self.navigationController!.viewControllers[index] as! ScheduleController, animated: true)
+                        
+                        break;
+                    }
+                }
+            
+            
+            }
+            
+           
+        }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

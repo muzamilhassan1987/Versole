@@ -24,6 +24,7 @@ public class UserData: NSObject, Mappable, NSCoding {
 	internal let kUserDataAptKey: String = "apt"
 	internal let kUserDataZipcodeKey: String = "zipcode"
     internal let kUserDataCreditCountKey: String = "userCredit"
+    internal let kUserDataCityKey: String = "city"
 
 
     // MARK: Properties
@@ -39,6 +40,7 @@ public class UserData: NSObject, Mappable, NSCoding {
 	public var apt: String?
 	public var zipcode: String?
     public var creditCount: String?
+    public var city: String?
 
     // MARK: SwiftyJSON Initalizers
     /**
@@ -70,6 +72,8 @@ public class UserData: NSObject, Mappable, NSCoding {
         zipcode = json[kUserDataZipcodeKey].string
         
         creditCount = json[kUserDataCreditCountKey].string
+        
+        city = json[kUserDataCityKey].string
 
     }
 
@@ -99,6 +103,7 @@ public class UserData: NSObject, Mappable, NSCoding {
 		apt <- map[kUserDataAptKey]
 		zipcode <- map[kUserDataZipcodeKey]
         creditCount <- map[kUserDataCreditCountKey]
+        city <- map[kUserDataCityKey]
 
     }
 
@@ -145,6 +150,9 @@ public class UserData: NSObject, Mappable, NSCoding {
         if creditCount != nil {
             dictionary.updateValue(creditCount!, forKey: kUserDataCreditCountKey)
         }
+        if city != nil {
+            dictionary.updateValue(city!, forKey: kUserDataCityKey)
+        }
 
         return dictionary
     }
@@ -163,6 +171,7 @@ public class UserData: NSObject, Mappable, NSCoding {
 		self.apt = aDecoder.decodeObjectForKey(kUserDataAptKey) as? String
 		self.zipcode = aDecoder.decodeObjectForKey(kUserDataZipcodeKey) as? String
         self.creditCount = aDecoder.decodeObjectForKey(kUserDataCreditCountKey) as? String
+        self.city = aDecoder.decodeObjectForKey(kUserDataCityKey) as? String
 
     }
 
@@ -179,6 +188,7 @@ public class UserData: NSObject, Mappable, NSCoding {
 		aCoder.encodeObject(apt, forKey: kUserDataAptKey)
 		aCoder.encodeObject(zipcode, forKey: kUserDataZipcodeKey)
         aCoder.encodeObject(creditCount, forKey: kUserDataCreditCountKey)
+        aCoder.encodeObject(city, forKey: kUserDataCityKey)
 
     }
 

@@ -20,7 +20,12 @@ class OrderConfirmationController: BaseController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    @IBAction func confirmOrder() {
+        
+    }
+    @IBAction func cancelOrder() {
+        
+    }
 
     /*
     // MARK: - Navigation

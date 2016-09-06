@@ -16,15 +16,20 @@ class PickDateTimeController: BaseController {
     @IBOutlet weak var lblDescription: UILabel!
     var data:NSMutableArray! = NSMutableArray()
     var headers:NSMutableArray! = NSMutableArray()
+    var arrDateYear:NSMutableArray! = NSMutableArray()
     var timeDetail:TimeSlotBase!
     var timeSlots:[TimeSlotAvailableTimeSlots]!
-    
+    var isDataLoaded:Bool!
+    var isNewOrder:Bool?
+    var isEdit:Bool? = false
     override func viewDidLoad() {
         
         currentController = Controllers.PickDate
         super.viewDidLoad()
         self.lblHeading.text = ""
         self.lblDescription.text = ""
+        isDataLoaded = false
+        isNewOrder = Singleton.sharedInstance.objItem.valueForKey("isNewOrder") as? Bool
         //setupViewController()
         //tblListign.reloadData()
         //tblListign.openSection(0, animated: false)
@@ -32,7 +37,10 @@ class PickDateTimeController: BaseController {
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        getSlotData()
+        if(self.isDataLoaded == false) {
+            getSlotData()
+        }
+        
         
     }
     func getSlotData(){
@@ -45,6 +53,8 @@ class PickDateTimeController: BaseController {
                     
                 case .Success:
                     if let value = response.result.value {
+                        print(value)
+                        self.isDataLoaded = true
                         self.timeDetail = TimeSlotBase.init(object: value)
                         self.lblHeading.text = self.timeDetail.data![0].heading
                         self.lblDescription.text = self.timeDetail.data![0].descriptionValue
@@ -63,13 +73,19 @@ class PickDateTimeController: BaseController {
     func  setupViewController() {
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "EEEE, MMM. d"
         
+        //for i in 0..<14
         let arrDate:NSMutableArray! = NSMutableArray()
-        for i in 0..<14 {
+        for i in 1..<15 {
+            dateFormatter.dateFormat = "EEEE, MMM. d"
             let dateString = dateFormatter.stringFromDate(nextDate(i))
             print(dateString)
             arrDate.addObject(dateString)
+            
+            dateFormatter.dateFormat = "YYYY-MM-dd"
+            let dateString1 = dateFormatter.stringFromDate(nextDate(i))
+            print(dateString1)
+            arrDateYear.addObject(dateString1)
         }
         
         self.timeSlots = self.timeDetail.data![0].availableTimeSlots
@@ -158,15 +174,36 @@ class PickDateTimeController: BaseController {
         let selectedHeader = self.headers[indexPath.section] as! UIView
         let label = selectedHeader.viewWithTag(100) as! UILabel
         
-        Singleton.sharedInstance.objItem.setValue(label.text, forKey: "datePick")
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let dateString = dateFormatter.dateFromString(arrDateYear.objectAtIndex(indexPath.section) as! String)
+        dateFormatter.dateFormat = "MMM dd, YYYY"
+        let dateStringNew = dateFormatter.stringFromDate(dateString!)
+//        "MMM dd, YYYY"
+        Singleton.sharedInstance.objItem.setValue(dateStringNew, forKey: "datePick")
+        Singleton.sharedInstance.objItem.setValue(Singleton.sharedInstance.userData.address, forKey: "address")
+        Singleton.sharedInstance.objItem.setValue(arrDateYear[indexPath.section], forKey: "dateYear")
+        print(arrDateYear[indexPath.row])
         Singleton.sharedInstance.objItem.setValue(self.data.objectAtIndex(indexPath.section).objectAtIndex(indexPath.row) as? String, forKey: "timeSlot")
         
         print(Singleton.sharedInstance.objItem)
-        
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ReviewOrderController") as! ReviewOrderController
-        self.navigationController?.pushViewController(controller, animated: true)
+//        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ReviewOrderController") as! ReviewOrderController
+//        controller.eSelectedReviewOrderType = eReviewOrderType.eReviewOrderTypePlace
+ //       self.navigationController?.pushViewController(controller, animated: true)
+        if (isEdit == false) {
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ReviewOrderController") as! ReviewOrderController
+            controller.eSelectedReviewOrderType = eReviewOrderType.eReviewOrderTypePlace
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+        else {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
+    deinit {
+    self.tblListign.delegate = nil
+    print("pick Deinit")
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
